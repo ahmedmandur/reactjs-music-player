@@ -11,7 +11,7 @@ export class SongCard extends React.Component {
       <div className="col s12 m6">
         <div className="card horizontal">
           <div className="card-image">
-            <img src={song.img} style={{ width: 150 }} alt={song.title} />
+            <img src={song.img} style={{ width: 120 }} alt={song.title} />
           </div>
           <div className="card-stacked">
             <div className="card-content">
