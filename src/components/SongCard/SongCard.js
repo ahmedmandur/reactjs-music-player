@@ -2,7 +2,7 @@ import React from "react";
 
 export class SongCard extends React.Component {
   handleValuesBack = () => {
-    this.props.onPlayOrPause(this.props.song.url);
+    this.props.onPlayOrPause(this.props.song.url, this.props.song.id);
   };
 
   render() {
@@ -21,7 +21,11 @@ export class SongCard extends React.Component {
                 className="btn btn-small waves-effect waves-light red"
                 onClick={this.handleValuesBack}
               >
-                <i className="material-icons">play_arrow</i>
+                {song.isPlaying ? (
+                  <i className="material-icons">stop</i>
+                ) : (
+                  <i className="material-icons">play_arrow</i>
+                )}
               </button>
             </div>
           </div>

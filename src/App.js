@@ -13,15 +13,23 @@ export default class App extends Component {
     isLoading: true
   };
 
-  onClickPlayFromSongCard = songUrl => {
-    this.setState({ isLoading: true, songUrl: "", showPlayer: false });
-    setTimeout(() => {
-      this.setState({ isLoading: false, songUrl: songUrl, showPlayer: true });
-    }, 2000);
+  onClickPlayFromSongCard = (songUrl, id) => {
+    var songsBeforeUpdate = this.state.songsList;
+
+    var item = songsBeforeUpdate.find(x => x.id === id);
+    if (item) {
+      item.isPlaying = !item.isPlaying;
+    }
+    this.setState({
+      isLoading: false,
+      songUrl: songUrl,
+      showPlayer: item.isPlaying,
+      songsList: songsBeforeUpdate
+    });
   };
 
   onMusicEnded = () => {
-    this.setState({ songUrl: "", showPlayer: false });
+    this.setState({ songUrl: "", showPlayer: false, songsList: Songs.songs });
   };
 
   componentDidMount() {
@@ -40,9 +48,11 @@ export default class App extends Component {
             {this.state.songsList.map(aSong => {
               return (
                 <SongCard
+                  id={aSong.id}
                   song={aSong}
-                  key={aSong.title}
+                  key={aSong.id}
                   onPlayOrPause={this.onClickPlayFromSongCard}
+                  isPlaying={aSong.isPlaying}
                 />
               );
             })}
@@ -54,3 +64,10 @@ export default class App extends Component {
     );
   }
 }
+
+export const updateObject = (oldObject, updateProperties) => {
+  return {
+    ...oldObject,
+    ...updateProperties
+  };
+};
