@@ -18,8 +18,17 @@ export default class App extends Component {
 
     var item = songsBeforeUpdate.find(x => x.id === id);
     if (item) {
-      item.isPlaying = !item.isPlaying;
+      var oldPlayState = item.isPlaying;
     }
+    //reset all
+    songsBeforeUpdate.forEach(a => {
+      a.isPlaying = false;
+    });
+
+    if (item) {
+      item.isPlaying = !oldPlayState;
+    }
+
     this.setState({
       isLoading: false,
       songUrl: songUrl,
